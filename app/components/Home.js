@@ -59,17 +59,20 @@ class App extends React.Component {
       console.log(game);
 
       if (game.playerOne == this.state.currentPlayer){
-        this.games.save(game, { playerOneScore: points});
+        console.log("Look, playerOne", game , points, this.state.currentPlayer)
         let p1 = points;
         let p2 = game.playerTwoScore;
-        this.checkWinner(game, p1, p2);
+        let winrar = this.checkWinner(game, p1, p2);
+        this.games.save(game, { playerOneScore: points, winner: winrar});
         this.clearCurrentGame();
       }
       if (game.playerTwo == this.state.currentPlayer){
-        this.games.save(game, { playerTwoScore: points});
+        this.state.currentPlayer)
         let p1 = game.playerOneScore;
         let p2 = points;
-        this.checkWinner(game, p1, p2);
+        let winrar = this.checkWinner(game, p1, p2);
+        this.games.save(game, { playerTwoScore: points, winner: winrar });
+
         this.clearCurrentGame();
       }
     }
@@ -78,16 +81,16 @@ class App extends React.Component {
   checkWinner(game, p1, p2){
     if (p1 !== null && p2 !== null){
       if (p1 > p2){
-        this.games.save(game, { winner: game.playerOne });
-        this.games.save(game, { playerTwoScore: p2});
+        return game.playerOne
       }
       if (p1 < p2){
-        this.games.save(game, { winner: game.playerTwo })
-        this.games.save(game, { playerTwoScore: p2});
+        return game.playerTwo
       }
       if (p1 == p2){
-        this.games.save(game, { winner: "Draw!" })
+        return "Neither"
       }
+    }else {
+      return null
     }
   }
 
