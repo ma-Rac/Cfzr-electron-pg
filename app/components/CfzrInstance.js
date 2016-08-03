@@ -43,7 +43,7 @@ class CfzrInstance extends React.Component {
     clearInterval(this.state.refresher);
     let component = this;
     var refresh = setInterval(this.updateGame.bind(component), dif)
-    console.log(dif);
+    console.log("this shouldnt appear",dif);
     console.log(refresh);
 
     this.setState({
@@ -55,20 +55,6 @@ class CfzrInstance extends React.Component {
     clearInterval(this.state.refresher);
   }
 
-  gameOpen() {
-    return !this.gameFinished() &&
-      this.props.game.winner === "None" &&
-      (this.props.game.playerOne === this.props.currentPlayer ||
-      this.props.game.playerTwo === null ||
-      this.props.game.playerTwo === this.props.currentPlayer);
-  }
-
-  gameAlreadyJoined() {
-    return !this.gameFinished() &&
-      this.props.game.winner === null &&
-      (this.props.game.playerOne === this.props.currentPlayer ||
-      this.props.game.playerTwo === this.props.currentPlayer);
-  }
 
   renderFloor(position, color) {
   const ctx = this.refs.canvas.getContext('2d');
@@ -120,7 +106,7 @@ class CfzrInstance extends React.Component {
     positions.map(function(position){
       if (position.x < -1) {
         points += 1;
-        console.log(points);
+        // console.log(points);
       }else{
         tempEnemy.push(position);
       }
@@ -135,7 +121,7 @@ class CfzrInstance extends React.Component {
     }
 
     var difference = points - prevp;
-    console.log("difference", difference,"points", points, "prevpoints", prevp);
+    // console.log("difference", difference,"points", points, "prevpoints", prevp);
     if (difference > 10 ){
       if (dif > 10){
         dif -= 1
@@ -243,7 +229,8 @@ class CfzrInstance extends React.Component {
 
 
     var returned = this.renderPoints(this.state.enemyPositions,this.state.difficulty,this.state.prevp);
-    console.log("difficulty", returned[2])
+
+    // console.log("difficulty", returned[2])
     // if (returned[2] != this.state.difficulty){
     //   this.updateDifficulty(returned[2]);
     // }
@@ -258,7 +245,7 @@ class CfzrInstance extends React.Component {
       difficulty: returned[2],
       prevpoints: returned[3],
       speed: this.checkSpeed(returned[0])
-    },console.log(this.state.speed));
+    });
   }
 
   jumpPlayer(){
@@ -294,10 +281,6 @@ class CfzrInstance extends React.Component {
     this.updateGame.bind(this);
   }
 
-  selectGame(game) {
-    game = this.props.game;
-    this.props.onSelect(game);
-  }
 
   styler(){
     return {
